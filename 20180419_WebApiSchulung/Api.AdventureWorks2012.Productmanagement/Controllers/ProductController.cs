@@ -96,5 +96,10 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
                 return InternalServerError(new Exception(ex.Message));
             }
         }
+
+        ~ProductController()
+        {
+            _productDbContext.Dispose();// Verbindung mit DB schließen (wird aber nicht zwingend gebraucht).
+        }
     }
 }

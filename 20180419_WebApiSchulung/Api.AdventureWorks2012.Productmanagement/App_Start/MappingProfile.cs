@@ -15,7 +15,7 @@ namespace Api.AdventureWorks2012.Productmanagement.App_Start
             // ViewModel nach Domain mappen
             CreateMap<ProductViewModel, Product>()
                 .ForMember(p => p.ProductID, opt => opt.Ignore()) // Die ProductId wird beim Mapping ignoriert
-                                                                  // Defaultvalues für NOT NULL-Spalten bzw. CHECK CONSTRAINTs auf der DB:
+                // Defaultvalues für NOT NULL-Spalten bzw. CHECK CONSTRAINTs auf der DB:
                 .ForMember(p => p.SellStartDate, opt => opt.UseValue(DateTime.Now))
                 .ForMember(p => p.ModifiedDate, opt => opt.UseValue(DateTime.Now))
                 .ForMember(p => p.SafetyStockLevel, opt => opt.UseValue(1000))
