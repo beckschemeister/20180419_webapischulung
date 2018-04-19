@@ -25,8 +25,7 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         {
             //return new HttpResponseMessage(HttpStatusCode.Forbidden);
             //return new HttpResponseMessage(HttpStatusCode.NotFound);
-            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Alle Produkte abfragen") };
-            
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Alle Produkte abfragen") };            
         }
 
         /// <summary>
@@ -57,8 +56,13 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
             return Unauthorized();
 
             // Userdefinied: https://stackoverflow.com/questions/28343117/creating-new-ihttpactionresult-action-result-methods?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+        }
 
-
+        // POST api/Product
+        [HttpPost] // <- damit der Methodenname mit Create und nicht mit POST beginnen kann. (Swagger kapiert das dankenswerterweise so).
+        public IHttpActionResult CreateProduct(Product product)
+        {
+            return Created(new Uri(Request.RequestUri + "/" + product.ProductID), product);
         }
     }
 }
