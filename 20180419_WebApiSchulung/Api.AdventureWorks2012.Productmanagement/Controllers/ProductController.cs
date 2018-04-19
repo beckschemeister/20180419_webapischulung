@@ -52,8 +52,8 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
             return Ok(productViewModel);
 
             // Success
-            return Created(new Uri(Request.RequestUri.ToString()), new { }); // 201
             return Ok("liefere Produkt mit Id " + id); // 200
+            return Created(new Uri(Request.RequestUri.ToString()), new { }); // 201
             return StatusCode(HttpStatusCode.NoContent); // 204
 
             // Client errors;
@@ -95,6 +95,45 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
             {
                 return InternalServerError(new Exception(ex.Message));
             }
+        }
+
+        [HttpPut]
+        public IHttpActionResult UpdateProduct(int id, ProductViewModel productViewModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var products = _productDbContext.Product.AsQueryable();
+
+            var product = products.FirstOrDefault(p => p.ProductID.Equals(id));
+
+            if (product == null)
+                return NotFound();
+
+            Mapper.Map(productViewModel, product);
+
+            _productDbContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IHttpActionResult DeleteProduct(int id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var products = _productDbContext.Product.AsQueryable();
+
+            var product = products.FirstOrDefault(p => p.ProductID.Equals(id));
+
+            if (product == null)
+                return NotFound();
+
+            _productDbContext.Product.Remove(product);
+            _productDbContext.SaveChanges();
+
+            return Ok();
         }
 
         ~ProductController()
