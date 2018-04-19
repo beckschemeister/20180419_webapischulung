@@ -25,6 +25,9 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
             _productDbContext = new ProductDbContext();
         }
 
+        /// <summary>
+        /// Neuere verbesserte Version, die wirklich alles liefert.
+        /// </summary>
         [Route("")]
         public async Task<IHttpActionResult> GetAllProducts()
         {

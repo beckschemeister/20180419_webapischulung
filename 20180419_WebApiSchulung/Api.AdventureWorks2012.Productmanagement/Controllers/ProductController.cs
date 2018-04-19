@@ -38,7 +38,8 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         //}
 
         /// <summary>
-        /// Asynchrone Methode
+        /// Asynchrone Methode <br/>
+        /// Wir behaupten, dass diese Methode <b>deprecated</b> ist!
         /// </summary>
         /// <returns></returns>
         [Obsolete()]

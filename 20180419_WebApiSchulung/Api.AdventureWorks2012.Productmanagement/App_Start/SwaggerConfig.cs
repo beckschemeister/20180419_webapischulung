@@ -2,6 +2,9 @@ using System.Web.Http;
 using WebActivatorEx;
 using Api.AdventureWorks2012.Productmanagement;
 using Swashbuckle.Application;
+using System;
+using System.Reflection;
+using System.IO;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -101,7 +104,7 @@ namespace Api.AdventureWorks2012.Productmanagement
                         // those comments into the generated docs and UI. You can enable this by providing the path to one or
                         // more Xml comment files.
                         //
-                        //c.IncludeXmlComments(GetXmlCommentsPath());
+                        c.IncludeXmlComments(GetXmlCommentsPath());
 
                         // Swashbuckle makes a best attempt at generating Swagger compliant JSON schemas for the various types
                         // exposed in your API. However, there may be occasions when more control of the output is needed.
@@ -250,6 +253,20 @@ namespace Api.AdventureWorks2012.Productmanagement
                         //
                         //c.EnableApiKeySupport("apiKey", "header");
                     });
+        }
+
+        /// <summary>
+        /// Gets the path to the Xml Comments file for the Web API assembly
+        /// </summary>
+        /// <returns></returns>
+        private static string GetXmlCommentsPath()
+        {
+            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var commentsFileName = string.Format("{0}.XML", Assembly.GetExecutingAssembly().GetName().Name);
+            var binFilePath = Path.Combine(baseDirectory, "bin");
+            var commentsFilePath = Path.Combine(binFilePath, commentsFileName);
+
+            return commentsFilePath;
         }
     }
 }

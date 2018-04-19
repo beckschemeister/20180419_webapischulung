@@ -7,6 +7,9 @@ namespace Api.AdventureWorks2012.Productmanagement.ViewModels
     /// </summary>
     public class ProductViewModel
     {
+        /// <summary>
+        /// Muss zur Neuanlage nicht angegeben werden
+        /// </summary>
         public int ProductID { get; set; }
 
         [Required]
