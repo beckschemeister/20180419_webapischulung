@@ -10,9 +10,11 @@ using Api.AdventureWorks2012.Productmanagement.ViewModels;
 using AutoMapper;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Web.Http.Cors;
 
 namespace Api.AdventureWorks2012.Productmanagement.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProductController : ApiController
     {
         private readonly ProductDbContext _productDbContext;
@@ -139,7 +141,7 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
                 return BadRequest();
 
             throw new Exception("Wir wollen mal so tun, als ob diese Methode nicht funktionieren würde!");
-            
+
             var products = _productDbContext.Product.AsQueryable();
 
             var product = products.FirstOrDefault(p => p.ProductID.Equals(id));

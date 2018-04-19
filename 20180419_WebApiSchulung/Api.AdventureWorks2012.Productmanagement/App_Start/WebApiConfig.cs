@@ -15,6 +15,9 @@ namespace Api.AdventureWorks2012.Productmanagement
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             settings.Formatting = Newtonsoft.Json.Formatting.Indented;
 
+            // CORS 
+            config.EnableCors();
+
             // Web-API-Konfiguration und -Dienste
 
             // Web-API-Routen
