@@ -8,6 +8,8 @@ using Api.AdventureWorks2012.Productmanagement.Filters;
 using Api.AdventureWorks2012.Productmanagement.Models;
 using Api.AdventureWorks2012.Productmanagement.ViewModels;
 using AutoMapper;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Api.AdventureWorks2012.Productmanagement.Controllers
 {
@@ -25,11 +27,22 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         /// Wird in der Schulung nicht verwendet, geht aber auch.
         /// </summary>
         /// <returns></returns>
-        public HttpResponseMessage GetAllProducts()
+        //public HttpResponseMessage GetAllProducts()
+        //{
+        //    //return new HttpResponseMessage(HttpStatusCode.Forbidden);
+        //    //return new HttpResponseMessage(HttpStatusCode.NotFound);
+        //    return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Alle Produkte abfragen") };
+        //}
+
+        /// <summary>
+        /// Asynchrone Methode
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IHttpActionResult> GetAllProducts()
         {
-            //return new HttpResponseMessage(HttpStatusCode.Forbidden);
-            //return new HttpResponseMessage(HttpStatusCode.NotFound);
-            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Alle Produkte abfragen") };
+            var products = await _productDbContext.Product.ToListAsync(); /* .ToListAsync() braucht using System.Data.Entity; */
+
+            return Ok(products);
         }
 
         /// <summary>
