@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.AdventureWorks2012.Productmanagement", "Api.AdventureWorks2012.Productmanagement\Api.AdventureWorks2012.Productmanagement.csproj", "{345363C8-232D-4E45-8C99-253434896235}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.AdventureWorks2012.ProductmanagementClient", "Api.AdventureWorks2012.ProductmanagementClient\Api.AdventureWorks2012.ProductmanagementClient.csproj", "{10DAD80C-8992-46CE-8161-EAAE51679260}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{345363C8-232D-4E45-8C99-253434896235}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{345363C8-232D-4E45-8C99-253434896235}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{345363C8-232D-4E45-8C99-253434896235}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10DAD80C-8992-46CE-8161-EAAE51679260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10DAD80C-8992-46CE-8161-EAAE51679260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10DAD80C-8992-46CE-8161-EAAE51679260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10DAD80C-8992-46CE-8161-EAAE51679260}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
