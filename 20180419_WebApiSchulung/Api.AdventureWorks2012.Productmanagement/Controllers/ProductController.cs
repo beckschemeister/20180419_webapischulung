@@ -30,12 +30,22 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         }
 
         /// <summary>
-        /// 2. Möglichkeit mit IHttpActionResult
+        /// 2. Möglichkeit mit IHttpActionResult.
+        /// Diese Möglichkeit verfolgen wir in der Schulung
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public IHttpActionResult GetProduct(int id)
         {
+            var products = _productDbContext.Product.AsQueryable();
+
+            var product = products.FirstOrDefault(p => p.ProductID.Equals(id));
+
+            if (product == null)
+                return NotFound();
+            
+            return Ok(product);
+
             // Success
             return StatusCode(HttpStatusCode.NoContent); // 204
             return Created(new Uri(Request.RequestUri.ToString()), new { }); // 201
