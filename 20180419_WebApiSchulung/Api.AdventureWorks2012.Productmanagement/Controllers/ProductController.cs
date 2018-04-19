@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Api.AdventureWorks2012.Productmanagement.Models;
 using Api.AdventureWorks2012.Productmanagement.ViewModels;
+using AutoMapper;
 
 namespace Api.AdventureWorks2012.Productmanagement.Controllers
 {
@@ -19,18 +20,19 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         }
 
         /// <summary>
-        /// 1. Möglichkeit mti HttpResponseMessage
+        /// 1. Möglichkeit mit HttpResponseMessage zurückgeben.
+        /// Wird in der Schulung nicht verwendet, geht aber auch.
         /// </summary>
         /// <returns></returns>
         public HttpResponseMessage GetAllProducts()
         {
             //return new HttpResponseMessage(HttpStatusCode.Forbidden);
             //return new HttpResponseMessage(HttpStatusCode.NotFound);
-            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Alle Produkte abfragen") };            
+            return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("Alle Produkte abfragen") };
         }
 
         /// <summary>
-        /// 2. Möglichkeit mit IHttpActionResult.
+        /// 2. Möglichkeit mit IHttpActionResult zurückgeben.
         /// Diese Möglichkeit verfolgen wir in der Schulung
         /// </summary>
         /// <param name="id"></param>
@@ -43,13 +45,16 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
 
             if (product == null)
                 return NotFound();
-            
-            return Ok(product);
+
+            // Siehe Beschreibung des AutoMappers in CreateProduct 
+            var productViewModel = Mapper.Map<Product, ProductViewModel>(product);
+
+            return Ok(productViewModel);
 
             // Success
-            return StatusCode(HttpStatusCode.NoContent); // 204
             return Created(new Uri(Request.RequestUri.ToString()), new { }); // 201
             return Ok("liefere Produkt mit Id " + id); // 200
+            return StatusCode(HttpStatusCode.NoContent); // 204
 
             // Client errors;
             return NotFound();
@@ -70,22 +75,20 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
                     return BadRequest();
                 }
 
-                var product = new Product
-                {
-                    Name = productViewModel.Name,
-                    ProductNumber = productViewModel.ProductNumber,
+                // Einige Felder braucht die Datenbank, die nicht im ProductViewModel übergeben wurden... das muss umgangen werden!
+                // Das lösen wir mit dem Automapper von Jimmy Bogard (NuGet-Paket).
+                // 1. über NuGet einbinden.
+                // 2. Global.asax.cs => Mapper initialisieren.
+                // 3. class MappingProfile in App_Start hinterlegen (dort ist dann das Mapping konfiguriert)
+                // 4. Mapping hier in der Klasse verwenden
+                var product = Mapper.Map<ProductViewModel, Product>(productViewModel);
 
-                    // Diese Felder braucht die Datenbank... das muss umgangen werden!
-                    ModifiedDate = DateTime.UtcNow,
-                    SellStartDate = DateTime.UtcNow,
-                    SafetyStockLevel = 12
-                };
                 _productDbContext.Product.Add(product);
                 _productDbContext.SaveChanges();
 
                 productViewModel.ProductID = product.ProductID;
 
-
+                // HttpResponse hat dann z.B. -> "location": "http://localhost:3987/api/Product/1011" -> Uri im Created, die zum angelegten Datensatz führt!
                 return Created(new Uri(Request.RequestUri + "/" + productViewModel.ProductID), productViewModel);
             }
             catch (Exception ex)
