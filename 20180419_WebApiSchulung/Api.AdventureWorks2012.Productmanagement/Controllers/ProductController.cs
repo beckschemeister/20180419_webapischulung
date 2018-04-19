@@ -15,7 +15,7 @@ using System.Web.Http.Cors;
 namespace Api.AdventureWorks2012.Productmanagement.Controllers
 {
     //[EnableCors(origins: "*", headers: "*", methods: "*")]
-    [RoutePrefix("katalog")]
+    [RoutePrefix("api/Product")]
     public class ProductController : ApiController
     {
         private readonly ProductDbContext _productDbContext;
@@ -41,6 +41,7 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         /// Asynchrone Methode
         /// </summary>
         /// <returns></returns>
+        [Obsolete()]
         public async Task<IHttpActionResult> GetAllProducts()
         {
             var products = await _productDbContext.Product.Take(10).ToListAsync(); /* .ToListAsync() braucht using System.Data.Entity; */
@@ -54,7 +55,7 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [Route("produkt/{id:int:min(1)}")]
+        [Route("{id:int:min(1)}")]
         public IHttpActionResult GetProduct(int id)
         {
             var products = _productDbContext.Product.AsQueryable();
