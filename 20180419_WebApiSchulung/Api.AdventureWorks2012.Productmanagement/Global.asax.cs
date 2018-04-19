@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using Api.AdventureWorks2012.Productmanagement.App_Start;
+using Api.AdventureWorks2012.Productmanagement.Filters;
 using AutoMapper;
 
 namespace Api.AdventureWorks2012.Productmanagement
@@ -8,7 +9,9 @@ namespace Api.AdventureWorks2012.Productmanagement
     {
         protected void Application_Start()
         {
-            Mapper.Initialize(c => c.AddProfile<MappingProfile>());
+            Mapper.Initialize(c => c.AddProfile<MappingProfile>()); // AutoMapper initialisieren
+
+            GlobalConfiguration.Configuration.Filters.Add(new CustomExceptionFilterAttribute()); // Global alle Exceptions durch diesen Filter schicken.
 
             GlobalConfiguration.Configure(WebApiConfig.Register);
         }

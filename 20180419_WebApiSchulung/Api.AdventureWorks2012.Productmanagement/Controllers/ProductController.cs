@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Api.AdventureWorks2012.Productmanagement.Filters;
 using Api.AdventureWorks2012.Productmanagement.Models;
 using Api.AdventureWorks2012.Productmanagement.ViewModels;
 using AutoMapper;
@@ -117,12 +118,15 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
             return Ok();
         }
 
+        //[CustomExceptionFilter] // oder einzelne Methoden mit dem ActionFilter versehen.
         [HttpDelete]
         public IHttpActionResult DeleteProduct(int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
+            throw new Exception("Wir wollen mal so tun, als ob diese Methode nicht funktionieren würde!");
+            
             var products = _productDbContext.Product.AsQueryable();
 
             var product = products.FirstOrDefault(p => p.ProductID.Equals(id));
