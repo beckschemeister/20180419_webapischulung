@@ -63,28 +63,35 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         [HttpPost] // <- damit der Methodenname mit Create und nicht mit POST beginnen kann. (Swagger kapiert das dankenswerterweise so).
         public IHttpActionResult CreateProduct(ProductViewModel productViewModel)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                var product = new Product
+                {
+                    Name = productViewModel.Name,
+                    ProductNumber = productViewModel.ProductNumber,
+
+                    // Diese Felder braucht die Datenbank... das muss umgangen werden!
+                    ModifiedDate = DateTime.UtcNow,
+                    SellStartDate = DateTime.UtcNow,
+                    SafetyStockLevel = 12
+                };
+                _productDbContext.Product.Add(product);
+                _productDbContext.SaveChanges();
+
+                productViewModel.ProductID = product.ProductID;
+
+
+                return Created(new Uri(Request.RequestUri + "/" + productViewModel.ProductID), productViewModel);
             }
-
-            var product = new Product
+            catch (Exception ex)
             {
-                Name = productViewModel.Name,
-                ProductNumber = productViewModel.ProductNumber,
-
-                // Diese Felder braucht die Datenbank... das muss umgangen werden!
-                ModifiedDate = DateTime.UtcNow,
-                SellStartDate = DateTime.UtcNow,
-                SafetyStockLevel = 12
-            };
-            _productDbContext.Product.Add(product);
-            _productDbContext.SaveChanges();
-
-            productViewModel.ProductID = product.ProductID;
-            
-
-            return Created(new Uri(Request.RequestUri + "/" + productViewModel.ProductID), productViewModel);
+                return InternalServerError(new Exception(ex.Message));
+            }
         }
     }
 }
