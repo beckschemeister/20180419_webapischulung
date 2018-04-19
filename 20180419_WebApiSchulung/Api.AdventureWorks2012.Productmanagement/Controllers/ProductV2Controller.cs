@@ -33,7 +33,7 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         {
             var products = await _productDbContext.Product.ToListAsync(); /* .ToListAsync() braucht using System.Data.Entity; */
 
-            return Ok(products);
+            return Ok(products).Cached(Cacheability.Public, maxAge: TimeSpan.FromMinutes(120)); ;
         }
     }
 }
