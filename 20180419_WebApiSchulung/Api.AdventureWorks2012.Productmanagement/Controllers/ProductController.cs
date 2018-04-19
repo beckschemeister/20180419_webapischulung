@@ -15,6 +15,7 @@ using System.Web.Http.Cors;
 namespace Api.AdventureWorks2012.Productmanagement.Controllers
 {
     //[EnableCors(origins: "*", headers: "*", methods: "*")]
+    [RoutePrefix("katalog")]
     public class ProductController : ApiController
     {
         private readonly ProductDbContext _productDbContext;
@@ -53,6 +54,7 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Route("produkt/{id:int:min(1)}")]
         public IHttpActionResult GetProduct(int id)
         {
             var products = _productDbContext.Product.AsQueryable();
