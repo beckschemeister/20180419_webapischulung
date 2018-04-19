@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.AdventureWorks2012.Productmanagement", "Api.AdventureWorks2012.Productmanagement\Api.AdventureWorks2012.Productmanagement.csproj", "{345363C8-232D-4E45-8C99-253434896235}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{345363C8-232D-4E45-8C99-253434896235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{345363C8-232D-4E45-8C99-253434896235}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{345363C8-232D-4E45-8C99-253434896235}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{345363C8-232D-4E45-8C99-253434896235}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
