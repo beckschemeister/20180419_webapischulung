@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Api.Security.One
 {
@@ -9,6 +10,9 @@ namespace Api.Security.One
     {
         public static void Register(HttpConfiguration config)
         {
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
+
             // Web-API-Konfiguration und -Dienste
 
             // Web-API-Routen
