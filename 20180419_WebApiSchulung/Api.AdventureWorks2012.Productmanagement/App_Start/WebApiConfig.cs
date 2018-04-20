@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Newtonsoft.Json.Serialization;
+using System.Web.Http.OData.Builder;
+using System.Web.Http.OData.Extensions;
+using Api.AdventureWorks2012.Productmanagement.Models;
+using Api.AdventureWorks2012.Productmanagement.Controllers;
 
 namespace Api.AdventureWorks2012.Productmanagement
 {
@@ -17,19 +21,22 @@ namespace Api.AdventureWorks2012.Productmanagement
             settings.Formatting = Newtonsoft.Json.Formatting.Indented;
 
             // CORS 
-            var cors = new EnableCorsAttribute("*","*","*");
+            var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
 
-            // Web-API-Konfiguration und -Dienste
+            // OData Routing
+            var builder = new ODataConventionModelBuilder();
+            builder.EntitySet<Product>(nameof(ProductOdataController).Replace("Controller", ""));
+            config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
 
             // Web-API-Routen
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                            name: "DefaultApi",
+                            routeTemplate: "api/{controller}/{id}",
+                            defaults: new { id = RouteParameter.Optional }
+                        );
         }
     }
 }
