@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.AdventureWorks2012.Prod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.AdventureWorks2012.ProductmanagementClient", "Api.AdventureWorks2012.ProductmanagementClient\Api.AdventureWorks2012.ProductmanagementClient.csproj", "{10DAD80C-8992-46CE-8161-EAAE51679260}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{86798FDD-4163-49F8-9B51-48DCEAD20B01}"
+	ProjectSection(SolutionItems) = preProject
+		Database\Product.sql = Database\Product.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
