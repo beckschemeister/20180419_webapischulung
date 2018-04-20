@@ -11,6 +11,7 @@ using AutoMapper;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Web.Http.Cors;
+using System.Web.Http.Description;
 
 namespace Api.AdventureWorks2012.Productmanagement.Controllers
 {
@@ -29,6 +30,7 @@ namespace Api.AdventureWorks2012.Productmanagement.Controllers
         /// Neuere verbesserte Version, die wirklich alles liefert.
         /// </summary>
         [Route("")]
+        [ResponseType(typeof(IEnumerable<ProductViewModel>))] // Returntyp für die Dokumentationen deklarieren (damit da nicht IHttpActionResult steht)
         public async Task<IHttpActionResult> GetAllProducts()
         {
             var products = await _productDbContext.Product.ToListAsync(); /* .ToListAsync() braucht using System.Data.Entity; */
