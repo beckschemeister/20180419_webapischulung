@@ -21,5 +21,7 @@ namespace Api.Security.One.Controllers
 
             return Ok("Hier die Liste der Produkte");
         }
+
+        // IdentitiyServer4 von ThinkTecture ist für einen eigenen Auth-Service interessant: https://github.com/leastprivilege/IdentityServer4Demo
     }
 }
