@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{86
 		Database\Product.sql = Database\Product.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Security.One", "Api.Security.One\Api.Security.One.csproj", "{2ED978E2-5DCA-478B-B2C8-36703DDA6544}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{10DAD80C-8992-46CE-8161-EAAE51679260}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10DAD80C-8992-46CE-8161-EAAE51679260}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10DAD80C-8992-46CE-8161-EAAE51679260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED978E2-5DCA-478B-B2C8-36703DDA6544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED978E2-5DCA-478B-B2C8-36703DDA6544}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED978E2-5DCA-478B-B2C8-36703DDA6544}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED978E2-5DCA-478B-B2C8-36703DDA6544}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
