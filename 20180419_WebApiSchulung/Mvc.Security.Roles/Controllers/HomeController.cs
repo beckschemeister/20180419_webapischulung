@@ -6,8 +6,10 @@ using System.Web.Mvc;
 
 namespace Mvc.Security.Roles.Controllers
 {
+    [Authorize(Roles = "Admin,Manager")]
     public class HomeController : Controller
     {
+        [AllowAnonymous] // jeder darf hier drauf
         public ActionResult Index()
         {
             return View();
@@ -20,6 +22,7 @@ namespace Mvc.Security.Roles.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")] // Nur Admins
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
