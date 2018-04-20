@@ -20,6 +20,13 @@ namespace Mvc.Security.Roles.Controllers
         {
             ViewBag.Message = "Your application description page.";
 
+            // User können auch direkt abgefragt werden 
+            if (this.User.Identity.Name.Equals("chuck.norris") || !this.User.IsInRole("Admin"))
+            {
+                // ein ganz spezielles Recht
+                ViewBag.Message += " hier noch dazu!";
+            }
+            
             return View();
         }
 

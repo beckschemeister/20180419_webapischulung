@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Mvc.Security.Roles.Models;
+using System.Web;
+using System.Web.Routing;
 
 namespace Mvc.Security.Roles
 {
@@ -24,17 +26,30 @@ namespace Mvc.Security.Roles
             // Konfigurieren des Anmeldecookies.
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
+
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {
+                    // Hier den Redirect zur Login-Page verhindern, wenn eine ApiController-Methode aufgerufen wurde!
+                    OnApplyRedirect = context =>
+                    {
+                        if (context.Request.Uri.ToString().Contains("api/"))
+                        {
+                            context.Response.StatusCode = (int)System.Net.HttpStatusCode.Unauthorized;
+                        }
+                        else
+                        {
+                            context.Response.Redirect(context.RedirectUri);
+                        }
+                    },
                     // Aktiviert die Anwendung für die Überprüfung des Sicherheitsstempels, wenn sich der Benutzer anmeldet.
                     // Dies ist eine Sicherheitsfunktion, die verwendet wird, wenn Sie ein Kennwort ändern oder Ihrem Konto eine externe Anmeldung hinzufügen.  
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Aktiviert die Anwendung für das vorübergehende Speichern von Benutzerinformationen beim Überprüfen der zweiten Stufe im zweistufigen Authentifizierungsvorgang.

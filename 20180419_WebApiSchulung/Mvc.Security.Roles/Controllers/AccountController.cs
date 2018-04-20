@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Mvc.Security.Roles.App_Start;
 using Mvc.Security.Roles.Models;
 
 namespace Mvc.Security.Roles.Controllers
@@ -156,7 +157,10 @@ namespace Mvc.Security.Roles.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
+                    // Standardrolle nach Registrierung festlegen (hier könnte man also eine "darf (noch) nix"-Gruppe angelegen, in der der User landet solange er nicht freigeschalten ist)
+                    UserManager.AddToRole(user.Id, RoleGroups.CanSeeThings);
+
                     // Weitere Informationen zum Aktivieren der Kontobestätigung und Kennwortzurücksetzung finden Sie unter https://go.microsoft.com/fwlink/?LinkID=320771
                     // E-Mail-Nachricht mit diesem Link senden
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
