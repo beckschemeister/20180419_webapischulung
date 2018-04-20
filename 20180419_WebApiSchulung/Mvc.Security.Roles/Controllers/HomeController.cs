@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mvc.Security.Roles.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Mvc.Security.Roles.Controllers
 {
-    [Authorize(Roles = "Admin,Manager")]
+    [Authorize(Roles = RoleGroups.CanSeeThings)]
     public class HomeController : Controller
     {
         [AllowAnonymous] // jeder darf hier drauf
@@ -22,7 +23,7 @@ namespace Mvc.Security.Roles.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")] // Nur Admins
+        [Authorize(Roles = RoleGroups.CanDoThings)] // Nur Admins
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
