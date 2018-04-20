@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Microsoft.Owin.Cors;
 
 [assembly: OwinStartup(typeof(Api.Security.One.Startup))]
 
@@ -15,6 +16,9 @@ namespace Api.Security.One
 
         public void Configuration(IAppBuilder app)
         {
+            // Cors
+            app.UseCors(CorsOptions.AllowAll);
+
             // Weitere Informationen zum Konfigurieren Ihrer Anwendung finden Sie unter https://go.microsoft.com/fwlink/?LinkID=316888.
             OAuthOptions = new OAuthAuthorizationServerOptions()
             {
