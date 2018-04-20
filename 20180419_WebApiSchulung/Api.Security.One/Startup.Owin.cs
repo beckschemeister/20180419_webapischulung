@@ -22,7 +22,7 @@ namespace Api.Security.One
             // Weitere Informationen zum Konfigurieren Ihrer Anwendung finden Sie unter https://go.microsoft.com/fwlink/?LinkID=316888.
             OAuthOptions = new OAuthAuthorizationServerOptions()
             {
-                TokenEndpointPath = new PathString("/token"), // hier gibt es den Token
+                TokenEndpointPath = new PathString("/token"), // hier kann der Token via Post abgeholt werden (=> http://localhost:15330/token). Im Body muss grant_type=password, username und password stehen.
                 Provider = new OAuthAuthorizationServerProvider()
                 {
                     OnValidateClientAuthentication = async (context) =>

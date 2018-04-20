@@ -10,6 +10,8 @@ namespace Api.Security.One
     {
         public static void Register(HttpConfiguration config)
         {
+            // Das musste wieder auskommentiert werden, da wir in Startup.Owin.cs das CORS enabled haben. 
+            // Und scheinbar gibt zweimal enabled = disabled?!?! 
             //var cors = new EnableCorsAttribute("*", "*", "*");
             //config.EnableCors(cors);
 

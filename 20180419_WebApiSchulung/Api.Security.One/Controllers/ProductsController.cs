@@ -3,7 +3,7 @@ using System.Web.Http;
 
 namespace Api.Security.One.Controllers
 {
-    [Authorize] // Authorisierung für den gesamten Controller notwendig
+    [Authorize] // Authorisierung via Bearer-Token für den gesamten Controller notwendig
     public class ProductsController : ApiController
     {
         // Verwendung von User-Secret
