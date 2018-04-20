@@ -1,6 +1,8 @@
 namespace Mvc.Security.Roles.Migrations
 {
+    using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using Mvc.Security.Roles.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -29,10 +31,13 @@ namespace Mvc.Security.Roles.Migrations
             //    );
             //
 
-            context.Roles.AddOrUpdate(r => r.Name, 
-                new IdentityRole { Name = "Admin" }, 
+            context.Roles.AddOrUpdate(r => r.Name,
+                new IdentityRole { Name = "Admin" },
                 new IdentityRole { Name = "Manager" });
 
+            var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            um.AddToRole("97ba7c3e-5e34-4c5e-9d9b-5e1ebe1fd97f", "Admin"); // test@test.com
+            um.AddToRole("98825b90-05a4-4a3d-8de1-0dca48ff3f8b", "Manager"); // test2@test.com
         }
     }
 }
